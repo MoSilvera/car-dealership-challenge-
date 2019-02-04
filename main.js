@@ -35,8 +35,11 @@ console.log(`${finalreport} are the top selling months of 2017`)
 
 //---------------------------------------------------------------------------------------------------------
 
+//filters the array of objects and only grabs the cars purchased in 2017
 let salePeople = cars.filter (car => car.purchase_date.split("-")[0] === "2017")
+//creates an array containing arrays. Those inner arrays have the first and last name of the sales person responsible for that particular sale, those arrays are then JOINED into a string of "first name last name"
 .map(car => [car.sales_agent.first_name, car.sales_agent.last_name].join(" "))
+//creates an object out of the array,if the object has a key with the sellers name that value is iterated by one. If the object does NOT have the key with the sellers name, the key is created and the value is set to one
 .reduce((newObject, seller) => {
       if (seller in newObject) {
         newObject[seller]++
@@ -45,8 +48,9 @@ let salePeople = cars.filter (car => car.purchase_date.split("-")[0] === "2017")
       }
       return newObject
      } , {})
-//this does the same thing as the for in loop, taking and object and creating an array full of arrays where the innter array contains the key value pairs present on the objecet
+//takes the object key/value pairs and puts in arrays, with the seller name at [0] and the number of sales they made at [1]
 let topSeller = Object.entries(salePeople)
+//this sorts those arrays by the value of their index [1], aka numbe of sales, and then returns the array at index [0] and the index [0] of that array (the sellers name)
 .sort((a,b) => b[1]-a[1])[0][0]
 console.log(`${topSeller} had the most sales in 2017`)
 
