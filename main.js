@@ -56,21 +56,30 @@ console.log(`${topSeller} had the most sales in 2017`)
 
 //---------------------------------------------------------------------------------------------------------
 
-let profitPerSeller = cars.filter (car => car.purchase_date.split("-")[0] === "2017").map(car => [[car.sales_agent.first_name, car.sales_agent.last_name].join(" "), car.gross_profit])
+//filters through the array of objects and only grabsl the cars purchased in 2017
+let profitPerSeller = cars.filter (car => car.purchase_date.split("-")[0] === "2017")
+//creates a new array containing arrays. The inner arrays contain the first and last name of the seller, joined with a space, and their gross profit.
+.map(car => [[car.sales_agent.first_name, car.sales_agent.last_name].join(" "), car.gross_profit])
+//creates a new object
 .reduce((newObject, name) => {
+    //if the object has a key with the same name as index [0] of the array (the seller name), then add the value at index [1] (gross sales) to the value of that key
     if (name[0] in newObject) {
         newObject[name[0]] += name[1];
+    //if the object DOESNT have a key with the same name as index [0], create the key and set its value equal to the value at index [1]
     } else {
         newObject[name[0]] = name[1];
     }
     return newObject
 }, {})
+//turns the object into an array full of arrays holding key/value pairs
 let topProfitSeller = Object.entries(profitPerSeller)
+//sorts those arrays by decending index [1] value and returns index [0] of the array at index [0]
 .sort((a,b) => b[1]-a[1])[0][0]
 
 console.log(`${topProfitSeller} is the top profit seller of 2017 `)
 
 //---------------------------------------------------------------------------------------------------------
+
 
 let mostPopularCarModel = cars.filter (car => car.purchase_date.split("-")[0] === "2017")
 .map(car => car.vehicle.model)
