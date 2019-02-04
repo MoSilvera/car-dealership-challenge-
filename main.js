@@ -80,18 +80,24 @@ console.log(`${topProfitSeller} is the top profit seller of 2017 `)
 
 //---------------------------------------------------------------------------------------------------------
 
-
+//filters through the array of objects and returns only the cars sold in 2017
 let mostPopularCarModel = cars.filter (car => car.purchase_date.split("-")[0] === "2017")
+//returns an array with only the vehicle model names 
 .map(car => car.vehicle.model)
-.reduce((newObject, seller) => {
-      if (seller in newObject) {
-        newObject[seller]++
+//creates an object out of that array
+.reduce((newObject, modelName) => {
+      //if the object has key of model name then incrment it
+      if (modelName in newObject) {
+        newObject[modelName]++
+      //if not then create the key and set its value equal to one
       } else {
-        newObject[seller] = 1
+        newObject[modelName] = 1
       }
       return newObject
      } , {})
+//turns that object into an array containing arrays with the key/value pairs from the object
 let topModel = Object.entries(mostPopularCarModel)
+//sorts the array by decending index [1] value and returns the value at index [0], for the array at index [0]
 .sort((a,b) => b[1]-a[1])[0][0]
 console.log(`${topModel} is the top selling model of car`)
 
