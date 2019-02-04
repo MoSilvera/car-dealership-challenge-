@@ -8,7 +8,7 @@ console.log(`${profit2017} is the total profit from 2017`)
 
 //---------------------------------------------------------------------------------------------------------
 
-//filtered the array of objects and only grablled those which were sold in 2017
+//filtered the array of objects and only grabbed those which were sold in 2017
 let mostMonthlySales2017 = cars.filter(car => car.purchase_date.split("-")[0] === "2017")
 //we then reduced those object to ONE object
 .reduce((newObject, car) => {
