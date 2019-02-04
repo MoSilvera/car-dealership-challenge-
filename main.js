@@ -103,17 +103,23 @@ console.log(`${topModel} is the top selling model of car`)
 
 //---------------------------------------------------------------------------------------------------------
 
-
+// filters through the array of objects and returns only the cars sold in 2017
 let bankLoans = cars.filter (car => car.purchase_date.split("-")[0] === "2017")
+//returns an array with only the credit provider names names
 .map(car => car.credit.credit_provider)
+//creates an object out of that array
 .reduce((newObject, provider) => {
+      //if the object has a key matching provider name, iterate the value by one
       if (provider in newObject) {
         newObject[provider]++
+      //if the object does not have a key matching the provider name, create that key, and set the value equal to one
       } else {
         newObject[provider] = 1
       }
       return newObject
      } , {})
+//turns that object into an array containing arrays, each with the key/value pair as items in the array
 let mostUsedBank = Object.entries(bankLoans)
+//sorts the array in decending order by the value of the item at index [1], returns the value at index [0] of the array at index [0]
 .sort((a,b) => b[1]-a[1])[0][0]
 console.log(`${mostUsedBank} is the most used bank in 2017`)
